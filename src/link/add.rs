@@ -753,6 +753,12 @@ impl LinkAddRequest {
             .append_nla(Nla::IfName(name))
     }
 
+    /// Create a wireguard link.
+    /// This is equivalent to `ip link add NAME type wireguard`.
+    pub fn wireguard(self, name: String) -> Self {
+        self.name(name).link_info(InfoKind::Wireguard, None).up()
+    }
+
     /// Replace existing matching link.
     pub fn replace(self) -> Self {
         Self {
